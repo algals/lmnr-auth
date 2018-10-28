@@ -1,0 +1,21 @@
+spring:
+  security:
+    user:
+      name: admin
+      password: a
+    oauth2:
+      client:
+        registration:
+          azure:
+            client-id: bf3b58ea-d086-47da-bdaf-5ddb2451e964
+            client-secret: NfSIdTM7v56B3lV5DRI4ULwlAtxtdS7yD2VLAtvn6AI=
+  sendgrid:
+    api-key:
+
+azure:
+  activedirectory:
+    tenant-id: eeaa8fd6-5ea7-4041-9b4e-41c068262640
+    active-directory-groups: Users
+
+lmnr-api:
+    url: "http://localhost:8082/contacts?id={id}"
