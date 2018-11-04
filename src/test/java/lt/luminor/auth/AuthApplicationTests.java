@@ -24,7 +24,7 @@ public class AuthApplicationTests {
 
 	@Test
 	public void contextLoads() throws IOException {
-		httpClientService.getContacts("34773w3444");
+		httpClientService.addContact("34773w3444");
 	}
 
 }

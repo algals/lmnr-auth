@@ -9,13 +9,35 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "lmnr-api")
 public class AppProperties {
 
-    private String url;
+    private String host;
+    private String api_url;
+    private String port;
 
-    public String getUrl() {
-        return url;
+    public String getUrl(){
+        return "http://"+getHost()+":"+getPort()+getApi_url();
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public String getApi_url() {
+        return api_url;
+    }
+
+    public void setApi_url(String api_url) {
+        this.api_url = api_url;
+    }
+
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
     }
 }

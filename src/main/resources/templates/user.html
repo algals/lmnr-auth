@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>LMNR</title>
 </head>
 <body>
-USER
+<span th:text="${name}"></span>
+<span th:text="${email}"></span>
+</body>
+<table>
+    <thead>
+    <tr>
+        <th> Email </th>
+        <th> Phone </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${contacts.empty}">
+        <td colspan="2"> No Contacts Available </td>
+    </tr>
+    <tr th:each="contact : ${contacts}">
+        <td><span th:text="${contact.email}"> Email </span></td>
+        <td><span th:text="${contact.phone}"> Phone </span></td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>

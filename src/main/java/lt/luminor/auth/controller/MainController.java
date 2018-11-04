@@ -1,32 +1,33 @@
 package lt.luminor.auth.controller;
 
-import lt.luminor.auth.service.HttpClientService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lt.luminor.auth.conf.AuthenticatedUser;
+import lt.luminor.auth.service.ContactService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
+import java.security.Principal;
 
 
 @Controller
 public class MainController {
 
+    private ContactService contactService;
 
-    @Autowired
-    HttpClientService httpClientService;
+    public MainController(ContactService contactService) {
+        this.contactService = contactService;
+    }
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping("/")
-    public String helloWorld(Authentication authentication) throws IOException {
-
-        httpClientService.getContacts((((DefaultOidcUser) ((OAuth2AuthenticationToken) authentication).getPrincipal()).getIdToken()).getTokenValue());
-
+    public String getContacts(Model model, Authentication authentication) throws IOException {
+        AuthenticatedUser user = AuthenticatedUser.get(authentication);
+        model.addAttribute("name", user.getName());
+        model.addAttribute("email", "xxxxx");
+        model.addAttribute("contacts", contactService.getContactsList(user.getOid()));
         return "user";
     }
-
-
 }

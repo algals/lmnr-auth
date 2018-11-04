@@ -1,4 +1,26 @@
 spring:
+  datasource:
+    url: jdbc:h2:mem:lmnr-api;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    platform: h2
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+  h2:
+     console:
+       enabled: true
+       path: /console
+       settings:
+         trace: false
+         web-allow-others: false
   security:
     user:
       name: admin
@@ -9,8 +31,6 @@ spring:
           azure:
             client-id: bf3b58ea-d086-47da-bdaf-5ddb2451e964
             client-secret: NfSIdTM7v56B3lV5DRI4ULwlAtxtdS7yD2VLAtvn6AI=
-  sendgrid:
-    api-key:
 
 azure:
   activedirectory:
@@ -18,4 +38,6 @@ azure:
     active-directory-groups: Users
 
 lmnr-api:
-    url: "http://localhost:8082/contacts?id={id}"
+    host: localhost
+    port: 8082
+    api_url: /contacts?id={id}

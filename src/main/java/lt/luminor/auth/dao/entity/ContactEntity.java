@@ -1,21 +1,23 @@
-package lt.luminor.auth.domain;
+package lt.luminor.auth.dao.entity;
 
-public class Contact {
+import javax.persistence.*;
 
+@Entity
+@Table
+public class ContactEntity {
+
+    @Id
+    @GeneratedValue
+    @Column
     private Long id;
+    @Column
     private String oid;
+    @Column
     private String name;
+    @Column
     private String email;
+    @Column
     private String phone;
-
-    public Contact() {}
-
-    public Contact(String name, String email, String phone) {
-
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-    }
 
     public Long getId() {
         return id;
