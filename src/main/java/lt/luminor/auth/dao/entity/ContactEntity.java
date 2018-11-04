@@ -18,6 +18,8 @@ public class ContactEntity {
     private String email;
     @Column
     private String phone;
+    @Column
+    private String address;
 
     public Long getId() {
         return id;
@@ -53,5 +55,13 @@ public class ContactEntity {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

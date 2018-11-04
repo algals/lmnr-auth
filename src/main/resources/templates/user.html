@@ -25,6 +25,7 @@
     <tr th:if="${!contacts.empty}" >
         <th> Email </th>
         <th> Phone </th>
+        <th> Address </th>
     </tr>
     </thead>
     <tbody>
@@ -34,6 +35,7 @@
     <tr th:each="contact : ${contacts}">
         <td><span th:text="${contact.email}"> Email </span></td>
         <td><span th:text="${contact.phone}"> Phone </span></td>
+        <td><span th:text="${contact.address}"> Address </span></td>
     </tr>
     </tbody>
 </table>
