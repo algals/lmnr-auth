@@ -9,27 +9,26 @@ import org.springframework.stereotype.Component;
 import java.security.Principal;
 
 
-public class AuthenticatedUser {
+public final class AuthenticatedUser {
 
-    private DefaultOidcUser defaultOidcUser;
-
-    private AuthenticatedUser(Authentication authentication){
-        defaultOidcUser = ((DefaultOidcUser) authentication.getPrincipal());
-    }
+    private static DefaultOidcUser defaultOidcUser;
+    private static AuthenticatedUser authenticatedUser;
 
     public String getName() {
         return defaultOidcUser.getName();
-    }
-
-    public String getEmail() {
-        return defaultOidcUser.getEmail();
     }
 
     public String getOid(){
         return (String) defaultOidcUser.getClaims().get("oid");
     }
 
+    public String getUniqueName() {return (String) defaultOidcUser.getClaims().get("unique_name");}
+
     public static AuthenticatedUser get(Authentication authentication){
-        return new AuthenticatedUser(authentication);
+        if(authenticatedUser==null){
+            authenticatedUser = new AuthenticatedUser();
+        }
+        defaultOidcUser = ((DefaultOidcUser) authentication.getPrincipal());
+        return authenticatedUser;
     }
 }

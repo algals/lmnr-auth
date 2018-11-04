@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -14,9 +15,12 @@ public class AppSecurity extends WebSecurityConfigurerAdapter {
 
 
     private OAuth2UserService<OidcUserRequest, OidcUser> oidcUserService;
+    private CustomizeLogoutSuccessHandler customizeLogoutSuccessHandler;
 
-    public AppSecurity(OAuth2UserService<OidcUserRequest, OidcUser> oidcUserService) {
+
+    public AppSecurity(OAuth2UserService<OidcUserRequest, OidcUser> oidcUserService, CustomizeLogoutSuccessHandler customizeLogoutSuccessHandler) {
         this.oidcUserService = oidcUserService;
+        this.customizeLogoutSuccessHandler = customizeLogoutSuccessHandler;
     }
 
     @Override
@@ -28,5 +32,10 @@ public class AppSecurity extends WebSecurityConfigurerAdapter {
                 .oauth2Login()
                 .userInfoEndpoint()
                 .oidcUserService(oidcUserService);
+        http.logout().logoutSuccessHandler(customizeLogoutSuccessHandler)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/app-logout"))
+                .logoutSuccessUrl("/login")
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true);
     }
 }

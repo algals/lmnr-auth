@@ -41,3 +41,4 @@ lmnr-api:
     host: localhost
     port: 8082
     api_url: /contacts?id={id}
+    logout_url: https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=http://localhost:8080/login

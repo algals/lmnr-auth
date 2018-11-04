@@ -3,21 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>LMNR</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            font:24px bold;
+            color: black;
+        }
+        td {
+            padding: 5px;
+        }
+    </style>
 </head>
 <body>
-<span th:text="${name}"></span>
-<span th:text="${email}"></span>
+<h2 th:text="${name}"></h2>
+<h2 th:text="${unique_name}"></h2>
+<br>
 </body>
-<table>
+<table >
     <thead>
-    <tr>
+    <tr th:if="${!contacts.empty}" >
         <th> Email </th>
         <th> Phone </th>
     </tr>
     </thead>
     <tbody>
     <tr th:if="${contacts.empty}">
-        <td colspan="2"> No Contacts Available </td>
+        <td colspan="2" style="color: red; font:24px bold"> No Contacts Available </td>
     </tr>
     <tr th:each="contact : ${contacts}">
         <td><span th:text="${contact.email}"> Email </span></td>
@@ -25,6 +37,8 @@
     </tr>
     </tbody>
 </table>
-
+<form th:action="@{/app-logout}" method="post">
+    <input style="color: blue" type="submit" value="LOGOUT"/>
+</form>
 </body>
 </html>
